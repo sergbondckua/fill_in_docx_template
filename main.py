@@ -131,7 +131,7 @@ if __name__ == "__main__":
         full_name='ОБ\'ЄДНАННЯ СПІВВЛАСНИКІВ БАГАТОКВАРТИРНОГО БУДИНКУ ЮГОСЛАВСЬКИЙ',
         short_name='ОСББ "ЮГОСЛАВСЬКИЙ"',
         address="вулиця Пастерівська, будинок 11",
-        person_name="Пінчук Микола Васильович",
+        person_name="Кокодзьобало Максим Іванович",
         phone_number="096-404-98-06",
         city="Черкаси",
         bank_details="""18016, м.Черкаси, вул.Пастерівська , 11
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 """,
     )
 
-    contract = ContractGenerator(source_price=7100*0.05)
+    contract = ContractGenerator(source_price=20)
     contract_data = contract.get_contract_data(party_data_src)
 
     template_contract_filler = TemplateFiller(
