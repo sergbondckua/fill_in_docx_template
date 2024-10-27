@@ -24,7 +24,7 @@ class FinancialAmountInUAH:
             " два", " дві"
         )
 
-    def extract_pennies(self):
+    def extract_pennies(self) -> int:
         """Відокремлює кількість копійок з суми"""
         return int(round((self.amount - int(self.amount)) * 100))
 
@@ -43,7 +43,7 @@ class FinancialAmountInUAH:
         else:
             return forms[2]
 
-    def format_result(self):
+    def format_result(self) -> str:
         """Форматує остаточний результат"""
         return f"{self.amount_in_words} {self.currency_word} {self.pennies:02d} {self.pennies_word}"
 

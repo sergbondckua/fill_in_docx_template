@@ -1,11 +1,13 @@
 import pymorphy3
 
 class NameDeclension:
+    """Формуємо повне ім'я з родовим відмінком"""
+
     def __init__(self, lang="uk"):
         # Ініціалізуємо pymorphy3 лише один раз при створенні об'єкта
         self.morph = pymorphy3.MorphAnalyzer(lang=lang)
 
-    def to_genitive(self, full_name):
+    def to_genitive(self, full_name) -> str:
         # Формуємо повне ім'я з родовими відмінками
         genitive_name = " ".join(
             [
@@ -15,7 +17,7 @@ class NameDeclension:
         ).title()
         return genitive_name
 
-    def _get_genitive_form(self, word):
+    def _get_genitive_form(self, word: str) -> str:
         # Отримуємо родовий відмінок для кожного слова
         parsed_word = self.morph.parse(word)[0]
         genitive_form = parsed_word.inflect({"gent"})
