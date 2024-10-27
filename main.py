@@ -28,7 +28,7 @@ class PartyData:
 @dataclass
 class ContractGenerator:
     source_price: float
-    from_date: str = datetime.now().replace(day=1).strftime('"%d" %B %Y р.')
+    from_date: str = datetime.now().replace(day=1).strftime('"%d" %B %Y')
 
     def __post_init__(self):
         self.price = int(self.source_price)
@@ -48,7 +48,8 @@ class ContractGenerator:
         self.genitive_name = NameDeclension()
 
     def get_contract_data(self, party_data: PartyData):
-        short_name = f"{party_data.person_name.split()[1]} {party_data.person_name.split()[0].upper()}"
+        part_person_name = party_data.person_name.split()
+        short_name = f"{part_person_name[1]} {part_person_name[0].upper()}"
         return {
             "contract_number": party_data.contract_number,
             "city": party_data.city,
@@ -126,24 +127,30 @@ if __name__ == "__main__":
 
     # Приклад використання
     party_data_src = PartyData(
-        contract_number=f"ЖБК-{datetime.now().replace(day=1).strftime('%d%m%Y')}-002",
-        full_name='ЖИТЛОВО - БУДІВЕЛЬНИЙ КООПЕРАТИВ № 57 "МЕДИК - 2"',
-        short_name='ЖБК№57"МЕДИК-2"',
-        address="вулиця Генерала Момота, будинок 150/1",
-        person_name="Мельник Григорій Богданович",
-        phone_number="067-472-00-50",
+        contract_number=f"ОСББ-{datetime.now().replace(day=1).strftime('%d%m%Y')}-105",
+        full_name='ОБ\'ЄДНАННЯ СПІВВЛАСНИКІВ БАГАТОКВАРТИРНОГО БУДИНКУ ЮГОСЛАВСЬКИЙ',
+        short_name='ОСББ "ЮГОСЛАВСЬКИЙ"',
+        address="вулиця Пастерівська, будинок 11",
+        person_name="Пінчук Микола Васильович",
+        phone_number="096-404-98-06",
         city="Черкаси",
-        bank_details="""18034, м. Черкаси, вул. Генерала Момота, 15/1
-р/р UA763052990000026003021602186
+        bank_details="""18016, м.Черкаси, вул.Пастерівська , 11
+р/р UA343052990000026002021604334
 в АТ КБ "Приватбанк"
 МФО 305299
-ЄДРПОУ 21369011
-т. 067-472-00-50
+ЄДРПОУ 40726671
+т. 097-507-40-46
 """,
     )
 
-    contract = ContractGenerator(source_price=80.48)
+    contract = ContractGenerator(source_price=7100*0.05)
     contract_data = contract.get_contract_data(party_data_src)
 
-    template_filler = TemplateFiller("template.docx", "filled_contract.docx")
-    template_filler.fill_template(contract_data)
+    template_contract_filler = TemplateFiller(
+        "templates/contract_template.docx", "filled_contract.docx"
+    )
+    template_pax_akt_filler = TemplateFiller(
+        "templates/pax_akt_template.docx", "filled_rax_akt.docx"
+    )
+    template_contract_filler.fill_template(contract_data)
+    template_pax_akt_filler.fill_template(contract_data)
