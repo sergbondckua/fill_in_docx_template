@@ -46,6 +46,8 @@ class ContractGenerator:
         short_name = f"{part_person_name[1]} {part_person_name[0].upper()}"
         return {
             "contract_number": party_data.contract_number,
+            "old_contract_number": party_data.old_contract_number,
+            "old_date_contract": party_data.old_date_contract,
             "city": party_data.city,
             "from_date": self.from_date,
             "party_one": party_data.full_name.upper(),
